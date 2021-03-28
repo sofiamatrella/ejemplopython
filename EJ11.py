@@ -315,6 +315,6 @@ for elem in categorias:
     print("-"*152)
     print(f"Cantidad: {len(categorias[elem])}")
     print("Nombres:")
-    for nombre in categorias[nombre]:                
-        print(nombre)
+    for elem in categorias[elem]:                
+        print(elem)
     
