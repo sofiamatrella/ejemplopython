@@ -1,0 +1,28 @@
+import csv
+from collections import Counter
+from pip._vendor import requests
+
+archivo_juegos = open("Ejercicios teoria/appstore_games.csv", "r")
+csv_reader = csv.reader(archivo_juegos, delimiter = ',')
+
+encabezado = next(csv_reader)
+print("Nombre"+" "*20+"Descripcion")
+for linea in csv_reader:
+    if linea[7] == 0 and linea[12] == "ES":
+        print(f"{linea[2]:<40} {linea[9]}")
+
+juegos = []
+for linea in csv_reader:
+    juegos.append(linea)
+
+juegos_con_mas_calificaciones = (sorted (juegos, key=lambda elem: elem[6], reverse = True) [:10])
+
+for elem in juegos_con_mas_calificaciones:
+    icon_url = elem[4]   
+    juego = elem[2]
+    icono = requests.get(icon_url)
+    with open(f"Ejercicios teoria/{juego}.jpg", "wb") as f:
+        f.write(icono.content)
+
+archivo_juegos.close()
+    
